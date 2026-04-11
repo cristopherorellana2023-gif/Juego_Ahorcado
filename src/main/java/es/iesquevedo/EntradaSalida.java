@@ -7,14 +7,11 @@ public class EntradaSalida {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("===== JUEGO DEL AHORCADO =====");
-        System.out.println("1. Marcas de coches");
-        System.out.println("2. Dragon Ball");
-        System.out.println("3. Colores");
-        System.out.println("Nota: si elijes una opcion que no está aqui, jugaras a encontrar " +
-                "\n una palabra del tema 'instrumentos de musica'");
-        System.out.print("Elige una opción: ");
+        for (int i = 0; i < Constantes.fichero.size(); i++) {
+            System.out.println(Constantes.fichero.get(i));
+        }
 
         return sc.nextInt();
     }
+
 }

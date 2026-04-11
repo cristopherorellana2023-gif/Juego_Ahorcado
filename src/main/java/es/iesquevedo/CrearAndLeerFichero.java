@@ -3,6 +3,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class CrearAndLeerFichero {
+
         public static void guardar(ArrayList<String> lista) {
 
             try {
