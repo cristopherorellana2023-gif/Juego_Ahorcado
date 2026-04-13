@@ -5,7 +5,7 @@ import net.datafaker.Faker;
 import java.io.File;
 import java.util.ArrayList;
 
-public class GeneradorDeElementos {
+public class GeneradorDeElementos{
     private ArrayList<String> palabras;
 
     public GeneradorDeElementos() {
@@ -22,6 +22,7 @@ public class GeneradorDeElementos {
     }
 
     public ArrayList<String> generarPalabras(int opcion) {
+    public static ArrayList<String> generarPalabras(int opcion) {
 
         Faker faker = new Faker();
         ArrayList<String> palabras = new ArrayList<>();
