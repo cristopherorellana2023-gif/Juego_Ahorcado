@@ -1,9 +1,6 @@
 package es.iesquevedo.UI;
 
 import es.iesquevedo.Common.Constantes;
-import es.iesquevedo.Common.NumeroException;
-import es.iesquevedo.Servicio.GestionGeneradorDeElementos;
-import es.iesquevedo.dao.CrearAndLeerFichero;
 import es.iesquevedo.Servicio.GestionDiccionarioService;
 import es.iesquevedo.Servicio.JuegoService;
 
@@ -11,21 +8,19 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class EntradaSalida {
-    private GestionGeneradorDeElementos service;
+
+    private GestionDiccionarioService dicService;
+    private JuegoService juegoService;
+
 
     // CONSTRUCTOR
-    public EntradaSalida(GestionDiccionarioService service) {
-        this.service = service;
+    public EntradaSalida(GestionDiccionarioService dicService, JuegoService juegoService) {
+        this.dicService = dicService;
+        this.juegoService = juegoService;
     }
 
-
-    //todoo lo de abajo modificarlo
-
-    // =========================
     // MENU PRINCIPAL
-    // =========================
-
-    public void menuPrincipal(JuegoService juego) {
+    public void menuPrincipal() {
         Scanner sc = new Scanner(System.in);
         int opcion;
 
@@ -38,17 +33,18 @@ public class EntradaSalida {
                 switch (opcion) {
 
                     case 1:
-                        // aqui debe ir de lo iniciar una partida nueva
+                        menuJugar();
                         break;
+
                     case 2:
-                        //Aqui tiene que ir recuperar lo de la partida anterior
+                        // recuperar partida
+                        break;
+
                     case 3:
-                        //llamar a un metodo que se encargue de todoo lo que hace el submenu que serael menu_diccionario
                         menuDiccionario();
                         break;
 
                     case 0:
-                        CrearAndLeerFichero.guardar(service.getLista());
                         System.out.println(Constantes.SALIR);
                         break;
 
@@ -56,8 +52,48 @@ public class EntradaSalida {
                         System.out.println(Constantes.ERROR_NUMERO_INVALIDO);
                 }
 
-            } catch (NumeroException e) {
-                System.out.println(e.getMessage());
+            } catch (InputMismatchException e) {
+                System.out.println("Debes introducir un número");
+                sc.nextLine();
+                opcion = -1;
+            }
+
+        } while (opcion != 0);
+    }
+
+
+
+    //MENU PARA CUANDO SELECCIONE JUGAR
+    private void menuJugar() {
+    Scanner sc = new Scanner(System.in);
+        int opcion;
+
+        do {
+            try {
+                System.out.print(Constantes.MENU_OPCION_JUGAR);
+                opcion = sc.nextInt();
+                sc.nextLine();
+
+                switch (opcion) {
+
+                    case 1:
+                        // iniciar partida con el fichero de los animales
+                        break;
+
+                    case 2:
+                        // iniciar partida con el fichero de los simpsons
+                        // break;
+
+                    case 0:
+                        System.out.println(Constantes.SALIR);
+                        break;
+
+                    default:
+                        System.out.println(Constantes.ERROR_NUMERO_INVALIDO);
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println(Constantes.ERROR_NUMERO);
                 sc.nextLine();
                 opcion = -1;
             }
@@ -69,51 +105,46 @@ public class EntradaSalida {
 
 
 
-
-
-    //el menu del diccionario por aparte simplemente porque asi lo veo mas claro, creo que no es obligatorio hacerlo un
-    //submenu dentro del menu principal
-
+    // MENU DICCIONARIO (ADMIN)
     private void menuDiccionario() {
+    Scanner sc = new Scanner(System.in);
 
-        //pedir contraseña para entrar al diccionario de datos de la clase diccionarioService
 
         System.out.print(Constantes.PASSWORD);
-            String pass = sc.nextLine();
+        String pass = sc.nextLine();
 
-            if (!pass.equals(Constantes.PASSWORD)) {
-                System.out.println(Constantes.PASSWORD_CORRECTA);
-                return;
-            }
+        if (!pass.equals(Constantes.PASSWORD)) {
+            System.out.println(Constantes.PASSWORD_INCORRECTA);
+            return;
+        }
 
-        int op;
+        int opcion;
 
         do {
             try {
                 System.out.print(Constantes.MENU_DICCIONARIO);
-                op = sc.nextInt();
+                opcion = sc.nextInt();
                 sc.nextLine();
 
-                switch (op) {
+                switch (opcion) {
 
                     case 1:
-                        //service.listar();
+                        // listar diccionario
                         break;
 
                     case 2:
-                        //service.insertar(new Elemento(Constantes.INPUT_PALABRA, Constantes.INPUT_CATEGORIA));
-                    break;
+                        // insertar elemento
+                        break;
 
                     case 3:
-                        //service.eliminar(Constantes.INPUT_PALABRA);
+                        // modificar elemento
                         break;
 
                     case 4:
-                        //service.modificar(Constantes.INPUT_PALABRA, Constantes.INPUT_NUEVA_CATEGORIA);
+                        // eliminar elemento
                         break;
 
                     case 0:
-                       // System.out.println(Constantes.SALIR);
                         break;
 
                     default:
@@ -122,10 +153,12 @@ public class EntradaSalida {
 
             } catch (InputMismatchException e) {
                 System.out.println(Constantes.ERROR_NUMERO);
-                op = -1;
+                sc.nextLine();
+                opcion = -1;
+                //Esto sirve para asegurarnos de que sea disitinto de 0, que se yo si alguien mete 01-02-03
+                // y por alguna razon lo lee
             }
 
-        } while (op != 0);
+        } while (opcion != 0);
     }
-
 }

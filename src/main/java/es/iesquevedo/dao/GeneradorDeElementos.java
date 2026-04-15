@@ -51,24 +51,23 @@ public class GeneradorDeElementos {
                         break;
                 }
 
+                //luego cambiarlo por metodos cada palabra que esta en verde porque se ve feo ahi
+                System.out.println(categoria);
                 System.out.println(mensaje);
 
                 for (int i = 0; i < 5; i++) {
 
-                    String palabra;
+                    String palabra = "";
 
                     switch (opcion) {
                         case 1:
-                            palabra = faker.movie().name();
+                            palabra = faker.animal().name();
                             break;
                         case 2:
                             palabra = faker.simpsons().character();
                             break;
-                        case 3:
-                            palabra = faker.lorem().word();
-                            break;
                         default:
-                            palabra = "Hola";
+                            System.out.println(Constantes.ERROR_NUMERO_INVALIDO);;
                     }
 
                     // limpiar palabra

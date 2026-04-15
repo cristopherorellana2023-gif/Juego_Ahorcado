@@ -45,7 +45,7 @@ public class CrearAndLeerFichero {
             while ((linea = br.readLine()) != null) {
 
                 // toString palabra ; categoria
-                String[] partes = linea.split(" ; ");
+                String[] partes = linea.split(Constantes.PUNTOYCOMA);
 
                 if (partes.length == 2) {
                     String palabra = partes[0];
@@ -71,13 +71,13 @@ public class CrearAndLeerFichero {
     /// Ficheros binarios para cuando se elija vovler a cargar una partida anterior
     public static void guardarFicheroBinario(ArrayList<Elemento> lista) {
                 try {
-                    ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("palabras.txt"));
+                    ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(Constantes.FICHERO));
                     oos.writeObject(lista);
                     oos.close();
-                    System.out.println("Fichero guardado");
+                    System.out.println(Constantes.FICHERO_GUARDADO);
 
         } catch (Exception e) {
-            System.out.println("Error al guardar");
+            System.out.println(Constantes.ERROR_GUARDAR);
         }
     }
 

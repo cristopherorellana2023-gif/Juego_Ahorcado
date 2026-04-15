@@ -9,15 +9,19 @@ public class Constantes {
                 "\n--- MENU PRINCIPAL ---\n" +
                  "1. Jugar\n" + "2. Recuperar Partida\n" + "3. Gestionar diccionario\n" + "0. Salir\n" + "Ingresa una Opcion: ";
 
-        // MENÚ DICCIONARIO
+        public static String MENU_OPCION_JUGAR = "\n=== Dime sobre que tema deseas adivinar la palabra ===\n"
+                                + "1. Animales \n2. Personajes de los Simpsons\n0. Volver\n Elige una Opción: ";
+
+        // MENÚ DICCIONARIO, ESTE ES EL MENU QUE SE VA ABRIR CUANDO ENTRE A LA PARTE DE ADMINISTRADOR
     public static final String MENU_DICCIONARIO =
             "\n1. Listar\n2. Insertar\n3. Modificar\n4. Eliminar\n0. Volver\nOpción: ";
 
         public static final String PASSWORD = "Dime la contraseña: ";
+        public static final String PASSWORD_INCORRECTA = "¡Contraseña incorrecta!";
         public static final String PASSWORD_CORRECTA = "¡Contraseña correcta!";
         public static final String FICHERO = "palabras.txt";
         public static final String ERROR_NUMERO = "Debes introducir un número";
-        public static final String ERROR_NUMERO_INVALIDO = "Debes introducir un numero entre 0 y 2";
+        public static final String ERROR_NUMERO_INVALIDO = "Debes introducir un numero entre los mostrados";
         public static final String ERROR_SOLO_LETRA = "Solo se permite una letra";
         public static final String ERROR_NO_LETRA = "El carácter no es una letra";
         public static final String ERROR_LETRA_REPETIDA = "Esa letra ya fue usada";
@@ -25,8 +29,8 @@ public class Constantes {
         public static final String INPUT_PALABRA = "Introduce palabra: ";
         public static final String INPUT_CATEGORIA = "Introduce categoría: ";
         public static final String INPUT_NUEVA_CATEGORIA = "Introduce nueva categoría: ";
-
-        public static final String GANASTE = " ¡Has ganado!";
+    public static final String PUNTOYCOMA = ";";
+    public static final String GANASTE = " ¡Has ganado!";
         public static final String PERDISTE = " Has perdido. La palabra era: ";
 
         public static final String FICHERO_GUARDADO = "Fichero guardado";

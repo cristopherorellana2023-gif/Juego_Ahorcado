@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface GestionGeneradorDeElementos {
-    public boolean isEmptyElementosList();
+
     public List<Elemento> getListaElementos();
     public boolean insertarElemento(Elemento elemento);
     public String getPalabraAdivinar(String categoria);
