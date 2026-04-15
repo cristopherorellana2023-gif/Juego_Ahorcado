@@ -1,6 +1,6 @@
-package es.iesquevedo;
+package es.iesquevedo.Modelo;
 
-public class Elemento {
+public class Elemento implements Comparable<Elemento>{
     private String palabraSecreta;
     private String categoria;
     //constructor
@@ -28,7 +28,6 @@ public class Elemento {
     }
 
 
-
     @Override
     public String toString() {
         return "Elemento{" +
@@ -38,6 +37,11 @@ public class Elemento {
     }
 
     public String toStringFichero(){
-        return palabraSecreta + ";"+categoria;
+        return palabraSecreta + " ; " + categoria;
+    }
+
+    @Override
+    public int compareTo(Elemento o) {
+        return this.palabraSecreta.compareTo(o.getPalabraSecreta());
     }
 }
