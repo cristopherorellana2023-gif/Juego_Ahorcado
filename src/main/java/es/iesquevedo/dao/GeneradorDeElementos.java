@@ -70,7 +70,7 @@ public class GeneradorDeElementos {
                             System.out.println(Constantes.ERROR_NUMERO_INVALIDO);;
                     }
 
-                    // limpiar palabra
+                    // limpiar palabra o permitir solo el ingreso de una palabra sin espacios, mayusculas, etc
                     palabra = palabra.replace(" ", "").toUpperCase();
 
                     elementos.add(new Elemento(palabra, categoria));

@@ -69,7 +69,7 @@ public class CrearAndLeerFichero {
 
 
     /// Ficheros binarios para cuando se elija vovler a cargar una partida anterior
-    public static void guardarFicheroBinario(ArrayList<Elemento> lista) {
+    public static void crearFicheroBinario(ArrayList<Elemento> lista) {
                 try {
                     ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(Constantes.FICHERO));
                     oos.writeObject(lista);
@@ -85,6 +85,7 @@ public class CrearAndLeerFichero {
         List<Elemento> palabras = null;
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(Constantes.FICHERO))){
             palabras = (List<Elemento>) ois.readObject();
+
         } catch (FileNotFoundException e) {
             System.out.println(Constantes.FICHERO_NO_GUARDADO);
         } catch (IOException e) {

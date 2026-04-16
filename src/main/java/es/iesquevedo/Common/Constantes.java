@@ -38,5 +38,6 @@ public class Constantes {
         public static final String FICHERO_NO_GUARDADO = "Fichero no guardado";
         public static final String ERROR_LEER = "Error al leer";
 
+        public static final String NO_HAY_FICHERO= "No hay ninguna partida guardada";
         public static final String NO_HAY_PALABRAS = "No hay palabras en el diccionario";
     }

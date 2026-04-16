@@ -2,7 +2,7 @@ package es.iesquevedo.UI;
 
 import es.iesquevedo.Common.Constantes;
 import es.iesquevedo.Servicio.GestionDiccionarioService;
-import es.iesquevedo.Servicio.JuegoService;
+import es.iesquevedo.Modelo.Juego;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -10,11 +10,11 @@ import java.util.Scanner;
 public class EntradaSalida {
 
     private GestionDiccionarioService dicService;
-    private JuegoService juegoService;
+    private Juego juegoService;
 
 
     // CONSTRUCTOR
-    public EntradaSalida(GestionDiccionarioService dicService, JuegoService juegoService) {
+    public EntradaSalida(GestionDiccionarioService dicService, Juego juegoService) {
         this.dicService = dicService;
         this.juegoService = juegoService;
     }
