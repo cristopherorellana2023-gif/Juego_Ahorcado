@@ -2,6 +2,7 @@ package es.iesquevedo.UI;
 
 import es.iesquevedo.Common.Constantes;
 import es.iesquevedo.Modelo.Elemento;
+import es.iesquevedo.Modelo.ResultadoPartida;
 import es.iesquevedo.Servicio.GestionDiccionarioService;
 import es.iesquevedo.Modelo.Juego;
 import es.iesquevedo.dao.CrearAndLeerFichero;
@@ -28,12 +29,9 @@ public class EntradaSalida {
                 switch (opcion) {
                     case 1: menuJugar(); break;
                     case 2:
-                        Juego partida = (Juego) CrearAndLeerFichero.leerFicheroBinario();
-                        if (partida != null) {
-                            System.out.println("Partida cargada correctamente");
-                            partida.partida(sc);
-                        } else {
-                            System.out.println("No hay partida guardada");
+                        ResultadoPartida resultado = CrearAndLeerFichero.leerResultado();
+                        if (resultado != null) {
+                            resultado.mostrarResumen();
                         }
                         break;
                     case 3: menuDiccionario(); break;

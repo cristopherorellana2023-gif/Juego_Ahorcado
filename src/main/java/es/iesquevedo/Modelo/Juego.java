@@ -1,5 +1,8 @@
 package es.iesquevedo.Modelo;
 
+import es.iesquevedo.dao.CrearAndLeerFichero;
+
+
 import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -8,11 +11,13 @@ public class Juego implements Serializable {
     private String palabra;
     private char[] incognita;
     private int intentos;
+    private int intentosTotales;
 
     public Juego(String palabra) {
         this.palabra = palabra.toUpperCase();
         this.incognita = new char[palabra.length()];
         this.intentos = incognita.length;
+        this.intentosTotales = palabra.length();
 
         Arrays.fill(incognita, '_');
     }
@@ -30,6 +35,10 @@ public class Juego implements Serializable {
             }
         }
         mostrarResultado();
+
+        // esto para guardar el resultado
+        ResultadoPartida resultado = new ResultadoPartida(palabra, ganado(), intentos, intentosTotales);
+        CrearAndLeerFichero.guardarResultado(resultado);
     }
 
 
