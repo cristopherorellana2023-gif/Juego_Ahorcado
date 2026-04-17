@@ -50,6 +50,18 @@ public class Juego implements Serializable {
         }
         return input.charAt(0);
     }
+    //hecho para que se guarde el resultado de la partida para saber que ha salido
+    public boolean isGanado() {
+        return palabra.equals(String.valueOf(incognita));
+    }
+
+    public int getIntentos() {
+        return intentos;
+    }
+
+    public String getPalabra() {
+        return palabra;
+    }
 
 
     // Metodo para probar si la letra está en la palabra y actualizar el estado del juego
