@@ -37,7 +37,7 @@ public class Elemento implements Comparable<Elemento>{
     }
 
     public String toStringFichero(){
-        return palabraSecreta + " ; " + categoria;
+        return palabraSecreta + ";" + categoria;
     }
 
     @Override

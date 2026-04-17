@@ -1,8 +1,10 @@
 package es.iesquevedo.UI;
 
 import es.iesquevedo.Common.Constantes;
+import es.iesquevedo.Modelo.Elemento;
 import es.iesquevedo.Servicio.GestionDiccionarioService;
 import es.iesquevedo.Modelo.Juego;
+import es.iesquevedo.dao.CrearAndLeerFichero;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -10,94 +12,68 @@ import java.util.Scanner;
 public class EntradaSalida {
 
     private GestionDiccionarioService dicService;
-    private Juego juegoService;
+    private Scanner sc = new Scanner(System.in);
 
-
-    // CONSTRUCTOR
-    public EntradaSalida(GestionDiccionarioService dicService, Juego juegoService) {
+    public EntradaSalida(GestionDiccionarioService dicService) {
         this.dicService = dicService;
-        this.juegoService = juegoService;
     }
 
-    // MENU PRINCIPAL
     public void menuPrincipal() {
-        Scanner sc = new Scanner(System.in);
         int opcion;
-
         do {
             try {
                 System.out.print(Constantes.MENU_PRINCIPAL);
                 opcion = sc.nextInt();
                 sc.nextLine();
-
                 switch (opcion) {
-
-                    case 1:
-                        menuJugar();
-                        break;
-
+                    case 1: menuJugar(); break;
                     case 2:
-                        // recuperar partida
+                        Juego partida = (Juego) CrearAndLeerFichero.leerFicheroBinario();
+                        if (partida != null) {
+                            System.out.println("Partida cargada correctamente");
+                            partida.partida(sc); //
+                        } else {
+                            System.out.println("No hay partida guardada");
+                        }
                         break;
-
-                    case 3:
-                        menuDiccionario();
-                        break;
-
-                    case 0:
-                        System.out.println(Constantes.SALIR);
-                        break;
-
-                    default:
-                        System.out.println(Constantes.ERROR_NUMERO_INVALIDO);
+                    case 3: menuDiccionario(); break;
+                    case 0: System.out.println(Constantes.SALIR); break;
+                    default: System.out.println(Constantes.ERROR_NUMERO_INVALIDO);
                 }
-
             } catch (InputMismatchException e) {
                 System.out.println("Debes introducir un número");
                 sc.nextLine();
                 opcion = -1;
             }
-
         } while (opcion != 0);
     }
 
-
-
-    //MENU PARA CUANDO SELECCIONE JUGAR
     private void menuJugar() {
-    Scanner sc = new Scanner(System.in);
         int opcion;
-
         do {
             try {
                 System.out.print(Constantes.MENU_OPCION_JUGAR);
                 opcion = sc.nextInt();
                 sc.nextLine();
-
                 switch (opcion) {
-
                     case 1:
-                        // iniciar partida con el fichero de los animales
+                        String palabra1 = dicService.getPalabraAdivinar("ANIMALES");
+                        if (palabra1 == null) { System.out.println(Constantes.NO_HAY_PALABRA); break; }
+                        new Juego(palabra1).partida(sc);
                         break;
-
                     case 2:
-                        // iniciar partida con el fichero de los simpsons
-                        // break;
-
-                    case 0:
-                        System.out.println(Constantes.SALIR);
+                        String palabra2 = dicService.getPalabraAdivinar("SIMPSONS");
+                        if (palabra2 == null) { System.out.println(Constantes.NO_HAY_PALABRA); break; }
+                        new Juego(palabra2).partida(sc);
                         break;
-
-                    default:
-                        System.out.println(Constantes.ERROR_NUMERO_INVALIDO);
+                    case 0: System.out.println(Constantes.SALIR); break;
+                    default: System.out.println(Constantes.ERROR_NUMERO_INVALIDO);
                 }
-
             } catch (InputMismatchException e) {
                 System.out.println(Constantes.ERROR_NUMERO);
                 sc.nextLine();
                 opcion = -1;
             }
-
         } while (opcion != 0);
     }
 
@@ -107,7 +83,6 @@ public class EntradaSalida {
 
     // MENU DICCIONARIO (ADMIN)
     private void menuDiccionario() {
-    Scanner sc = new Scanner(System.in);
 
 
         System.out.print(Constantes.PASSWORD);
@@ -129,22 +104,67 @@ public class EntradaSalida {
                 switch (opcion) {
 
                     case 1:
-                        // listar diccionario
+                        // LISTAR DICCIONARIO
+                        System.out.println("DICCIONARIO:");
+
+                        for (Elemento e : dicService.getListaElementos()) {
+                            System.out.println(e);
+                        }
                         break;
 
                     case 2:
-                        // insertar elemento
+                        // INSERTAR
+                        System.out.print("Palabra: ");
+                        String palabra = sc.nextLine();
+
+                        System.out.print("Categoria: ");
+                        String categoria = sc.nextLine();
+
+                        boolean insertado = dicService.insertarElemento(
+                                new Elemento(palabra, categoria)
+                        );
+
+                        if (insertado) {
+                            System.out.println("Insertado correctamente");
+                        } else {
+                            System.out.println("Error al insertar");
+                        }
                         break;
 
                     case 3:
-                        // modificar elemento
+                        // MODIFICAR
+                        System.out.print("Palabra a modificar: ");
+                        String antigua = sc.nextLine();
+
+                        System.out.print("Nueva palabra: ");
+                        String nueva = sc.nextLine();
+
+                        boolean modificado = dicService.modificarElemento(antigua, nueva);
+
+                        if (modificado) {
+                            System.out.println("Modificado correctamente");
+                        } else {
+                            System.out.println("    No encontrado");
+                        }
                         break;
 
+
                     case 4:
-                        // eliminar elemento
+                        // ELIMINAR
+                        System.out.print("Palabra a eliminar: ");
+                        String eliminar = sc.nextLine();
+
+                        boolean eliminado = dicService.eliminarElemento(eliminar);
+
+                        if (eliminado) {
+                            System.out.println("Eliminado correctamente");
+                        } else {
+                            System.out.println("No encontrado");
+                        }
                         break;
 
                     case 0:
+                        System.out.println("Saliendo...");
                         break;
 
                     default:
@@ -160,5 +180,7 @@ public class EntradaSalida {
             }
 
         } while (opcion != 0);
+
     }
+
 }

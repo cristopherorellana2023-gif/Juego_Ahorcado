@@ -16,7 +16,7 @@ public class Constantes {
     public static final String MENU_DICCIONARIO =
             "\n1. Listar\n2. Insertar\n3. Modificar\n4. Eliminar\n0. Volver\nOpción: ";
 
-        public static final String PASSWORD = "Dime la contraseña: ";
+        public static final String PASSWORD = "1234";
         public static final String PASSWORD_INCORRECTA = "¡Contraseña incorrecta!";
         public static final String PASSWORD_CORRECTA = "¡Contraseña correcta!";
         public static final String FICHERO = "palabras.txt";
@@ -29,14 +29,22 @@ public class Constantes {
         public static final String INPUT_PALABRA = "Introduce palabra: ";
         public static final String INPUT_CATEGORIA = "Introduce categoría: ";
         public static final String INPUT_NUEVA_CATEGORIA = "Introduce nueva categoría: ";
-    public static final String PUNTOYCOMA = ";";
-    public static final String GANASTE = " ¡Has ganado!";
+        public static final String PUNTOYCOMA = ";";
+
+        public static final String FICHERO_BINARIO = "partida.dat";
+
+        public static final String GANASTE = " ¡Has ganado!";
         public static final String PERDISTE = " Has perdido. La palabra era: ";
+        public static final String NO_HAY_PALABRA = "No hay palabras en esa categoría";
+
+
 
         public static final String FICHERO_GUARDADO = "Fichero guardado";
         public static final String ERROR_GUARDAR = "Error al guardar";
         public static final String FICHERO_NO_GUARDADO = "Fichero no guardado";
         public static final String ERROR_LEER = "Error al leer";
+
+
 
         public static final String NO_HAY_FICHERO= "No hay ninguna partida guardada";
         public static final String NO_HAY_PALABRAS = "No hay palabras en el diccionario";

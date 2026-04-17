@@ -5,10 +5,9 @@ import es.iesquevedo.Modelo.Elemento;
 import net.datafaker.Faker;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class GeneradorDeElementos {
+public class GeneradorDeElementos implements DaoGeneradorDeElementos {
 
     private List<Elemento> elementos;
 
@@ -16,43 +15,30 @@ public class GeneradorDeElementos {
 
         File file = new File(Constantes.FICHERO);
 
-        // Si existe fichero cargarlo
-        if (file.exists()) {
-
+        if (file.exists() && file.length() > 0) {
             elementos = CrearAndLeerFichero.leer();
 
         } else {
 
-            // Si no existe -> generar con Faker
             elementos = new ArrayList<>();
             Faker faker = new Faker();
 
-            for (int opcion = 1; opcion <= 4; opcion++) {
+            for (int opcion = 1; opcion <= 2; opcion++) {
 
                 String categoria = "";
                 String mensaje = "";
 
                 switch (opcion) {
                     case 1:
-                        categoria = "PELICULAS";
-                        mensaje = "Generando películas...";
+                        categoria = "ANIMALES";
+                        mensaje = "Generando animales...";
                         break;
                     case 2:
                         categoria = "SIMPSONS";
                         mensaje = "Generando personajes de los Simpsons...";
                         break;
-                    case 3:
-                        categoria = "PALABRAS";
-                        mensaje = "Generando palabras...";
-                        break;
-                    case 4:
-                        categoria = "FRASES";
-                        mensaje = "Generando frases...";
-                        break;
                 }
 
-                //luego cambiarlo por metodos cada palabra que esta en verde porque se ve feo ahi
-                System.out.println(categoria);
                 System.out.println(mensaje);
 
                 for (int i = 0; i < 5; i++) {
@@ -66,20 +52,126 @@ public class GeneradorDeElementos {
                         case 2:
                             palabra = faker.simpsons().character();
                             break;
-                        default:
-                            System.out.println(Constantes.ERROR_NUMERO_INVALIDO);;
                     }
 
-                    // limpiar palabra o permitir solo el ingreso de una palabra sin espacios, mayusculas, etc
-                    palabra = palabra.replace(" ", "").toUpperCase();
+                    palabra = limpiarPalabra(palabra);
 
                     elementos.add(new Elemento(palabra, categoria));
                 }
             }
+
+
+            CrearAndLeerFichero.guardar(elementos);
         }
     }
 
+    private String limpiarPalabra(String palabra) {
+        return palabra
+                .toUpperCase().replaceAll(" ", "");
+    }
+
+
+
+    @Override
+    public boolean isEmptyElementosList() {
+        return elementos.isEmpty();
+    }
+
+    @Override
+    public boolean insertarElemento(Elemento elemento) {
+        boolean res = elementos.add(elemento);
+        CrearAndLeerFichero.guardar(elementos);
+        return res;
+    }
+
+    @Override
+    public boolean insertarElemento(int id, String palabra, String categoria) {
+        return insertarElemento(new Elemento(palabra, categoria));
+    }
+
+    @Override
     public List<Elemento> getElementos() {
         return elementos;
+    }
+
+    @Override
+    public List<Elemento> getElementosCategoria(String categoria) {
+
+        List<Elemento> filtrados = new ArrayList<>();
+
+        for (Elemento e : elementos) {
+            if (e.getCategoria().equalsIgnoreCase(categoria)) {
+                filtrados.add(e);
+            }
+        }
+
+        return filtrados;
+    }
+
+    @Override
+    public List<Elemento> listadoOrdenado(boolean ascendente) {
+
+        List<Elemento> copia = new ArrayList<>(elementos);
+
+        copia.sort(Comparator.comparing(Elemento::getPalabraSecreta));
+
+        if (!ascendente) {
+            Collections.reverse(copia);
+        }
+
+        return copia;
+    }
+
+    @Override
+    public boolean modificarCategoria(int id, String categoria) {
+
+        if (id >= 0 && id < elementos.size()) {
+            elementos.get(id).setCategoria(categoria);
+            CrearAndLeerFichero.guardar(elementos);
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean modificarElemento(int id, String palabra) {
+
+        if (id >= 0 && id < elementos.size()) {
+            elementos.get(id).setPalabraSecreta(palabra);
+            CrearAndLeerFichero.guardar(elementos);
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public void eliminarElemento(Elemento elemento) {
+        elementos.remove(elemento);
+        CrearAndLeerFichero.guardar(elementos);
+    }
+
+    @Override
+    public boolean eliminarElemento(int id) {
+
+        if (id >= 0 && id < elementos.size()) {
+            elementos.remove(id);
+            CrearAndLeerFichero.guardar(elementos);
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public String getPalabraAdivinar(String categoria) {
+
+        List<Elemento> lista = getElementosCategoria(categoria);
+
+        if (lista.isEmpty()) return null;
+
+        Random r = new Random();
+        return lista.get(r.nextInt(lista.size())).getPalabraSecreta();
     }
 }

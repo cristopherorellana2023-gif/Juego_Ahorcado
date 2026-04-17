@@ -3,6 +3,7 @@ package es.iesquevedo.Servicio;
 import es.iesquevedo.Common.Constantes;
 import es.iesquevedo.Modelo.Elemento;
 import es.iesquevedo.dao.DaoGeneradorDeElementos;
+import es.iesquevedo.dao.GeneradorDeElementos;
 
 import java.io.*;
 import java.util.*;
@@ -10,15 +11,19 @@ import java.util.*;
 public class GestionDiccionarioService implements GestionGeneradorDeElementos {
 
     private List<Elemento> lista;
-    private DaoGeneradorDeElementos generador;
+    private GeneradorDeElementos generador;
 
     // CONSTRUCTOR
-    public GestionDiccionarioService(DaoGeneradorDeElementos generador) {
+    public GestionDiccionarioService(GeneradorDeElementos generador) {
         this.generador = generador;
-        this.lista = new ArrayList<>();
+        this.lista = new ArrayList<>(generador.getElementos());
+
+        try {
+            cargarFichero();
+        } catch (IOException e) {
+            System.out.println("Error cargando fichero: " + e.getMessage());
+        }
     }
-
-
 
     //ESTOS METODOS SON LOS QUE EXITEN EN LA INTERFAZ, AQUI SOLO SE RELLENAN O S DEVUELVE
     //LO QUE REALEMENTE
@@ -74,11 +79,14 @@ public class GestionDiccionarioService implements GestionGeneradorDeElementos {
 
         List<Elemento> res = new ArrayList<>();
 
+        if (categoria == null || categoria.isEmpty()) return res;
+
         for (Elemento e : lista) {
             if (e.getCategoria().equalsIgnoreCase(categoria)) {
                 res.add(e);
             }
         }
+
         return res;
     }
 
