@@ -12,10 +12,11 @@ public class Juego implements Serializable {
     public Juego(String palabra) {
         this.palabra = palabra.toUpperCase();
         this.incognita = new char[palabra.length()];
-        this.intentos = 6;
+        this.intentos = incognita.length;
 
         Arrays.fill(incognita, '_');
     }
+
 
     public void partida(Scanner sc) {
         while (intentos > 0 && !ganado()) {
@@ -31,6 +32,9 @@ public class Juego implements Serializable {
         mostrarResultado();
     }
 
+
+    //nos falta hacer un arraylist para las letras usadas, para mostrarlo en la partida, bueno aunque en
+    //el java fx tenia una variable que era de nivel de dificultad tambien, seguramente tendremos que hacerla
     private void mostrarEstado() {
         System.out.println("\nPalabra: " + String.valueOf(incognita));
         System.out.println("Intentos restantes: " + intentos);
@@ -47,6 +51,8 @@ public class Juego implements Serializable {
         return input.charAt(0);
     }
 
+
+    // Metodo para probar si la letra está en la palabra y actualizar el estado del juego
     private boolean probarLetra(char letra) {
         boolean acierto = false;
 
@@ -59,7 +65,7 @@ public class Juego implements Serializable {
 
         return acierto;
     }
-
+    //metodo que cuando la palabra esta completamente destapada, el juego se da por ganado
     private boolean ganado() {
         return palabra.equals(String.valueOf(incognita));
     }

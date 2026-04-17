@@ -16,7 +16,7 @@ public class CrearAndLeerFichero {
             FileWriter fw = new FileWriter(Constantes.FICHERO);
 
             for (Elemento e : lista) {
-                fw.write(e.toStringFichero() + "\n");
+                fw.write(e.toString() + "\n");
             }
 
             fw.close();
@@ -32,8 +32,8 @@ public class CrearAndLeerFichero {
         ArrayList<Elemento> lista = new ArrayList<>();
         File fichero = new File(Constantes.FICHERO);
 
-        // Si no existe devolver la lista vacía
-        if (!fichero.exists()) {
+        // Si no existe devolver la lista vacia
+        if (!fichero.exists() || fichero.length() == 0) {
             return lista;
         }
 
@@ -68,7 +68,7 @@ public class CrearAndLeerFichero {
 
 
 
-    /// Ficheros binarios para cuando se elija vovler a cargar una partida anterior
+    // Ficheros binarios para cuando se elija vovler a cargar una partida anterior
     public static void crearFicheroBinario(List<Elemento> lista) {
                 try {
                     ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(Constantes.FICHERO_BINARIO));

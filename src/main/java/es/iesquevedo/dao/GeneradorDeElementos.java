@@ -84,10 +84,6 @@ public class GeneradorDeElementos implements DaoGeneradorDeElementos {
         return res;
     }
 
-    @Override
-    public boolean insertarElemento(int id, String palabra, String categoria) {
-        return insertarElemento(new Elemento(palabra, categoria));
-    }
 
     @Override
     public List<Elemento> getElementos() {

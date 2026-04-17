@@ -1,9 +1,13 @@
 package es.iesquevedo.Modelo;
 
+import es.iesquevedo.Common.Constantes;
+
+
 public class Elemento implements Comparable<Elemento>{
     private String palabraSecreta;
     private String categoria;
-    //constructor
+
+    //constructor que mete las palabras dentro del fichero, eso es lo que hace esta clase
     public Elemento(String palabra, String categoria) {
         this.palabraSecreta = palabra;
         this.categoria = categoria;
@@ -28,16 +32,10 @@ public class Elemento implements Comparable<Elemento>{
     }
 
 
-    @Override
-    public String toString() {
-        return "Elemento{" +
-                "palabra='" + palabraSecreta + '\'' +
-                ", categoria='" + categoria + '\'' +
-                '}';
-    }
 
-    public String toStringFichero(){
-        return palabraSecreta + ";" + categoria;
+
+    public String toString(){
+        return palabraSecreta + Constantes.PUNTOYCOMA + categoria;
     }
 
     @Override

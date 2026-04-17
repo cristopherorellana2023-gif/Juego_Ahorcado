@@ -31,7 +31,7 @@ public class EntradaSalida {
                         Juego partida = (Juego) CrearAndLeerFichero.leerFicheroBinario();
                         if (partida != null) {
                             System.out.println("Partida cargada correctamente");
-                            partida.partida(sc); //
+                            partida.partida(sc);
                         } else {
                             System.out.println("No hay partida guardada");
                         }
@@ -63,7 +63,8 @@ public class EntradaSalida {
                         break;
                     case 2:
                         String palabra2 = dicService.getPalabraAdivinar("SIMPSONS");
-                        if (palabra2 == null) { System.out.println(Constantes.NO_HAY_PALABRA); break; }
+                        if (palabra2 == null) { System.out.println(Constantes.NO_HAY_PALABRA); break;
+                        }
                         new Juego(palabra2).partida(sc);
                         break;
                     case 0: System.out.println(Constantes.SALIR); break;
@@ -144,7 +145,7 @@ public class EntradaSalida {
                         if (modificado) {
                             System.out.println("Modificado correctamente");
                         } else {
-                            System.out.println("    No encontrado");
+                            System.out.println("No encontrado");
                         }
                         break;
 
@@ -159,12 +160,12 @@ public class EntradaSalida {
                         if (eliminado) {
                             System.out.println("Eliminado correctamente");
                         } else {
-                            System.out.println("No encontrado");
+                            System.out.println(Constantes.ELIMINAR_ELEMENTO);
                         }
                         break;
 
                     case 0:
-                        System.out.println("Saliendo...");
+                        System.out.println(Constantes.SALIR);
                         break;
 
                     default:

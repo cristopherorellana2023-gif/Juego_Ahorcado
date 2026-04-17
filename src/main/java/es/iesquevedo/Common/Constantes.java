@@ -38,7 +38,7 @@ public class Constantes {
         public static final String NO_HAY_PALABRA = "No hay palabras en esa categoría";
 
 
-
+        public static final String ELIMINAR_ELEMENTO = "ELEMENTO NO ENCONTRADO";
         public static final String FICHERO_GUARDADO = "Fichero guardado";
         public static final String ERROR_GUARDAR = "Error al guardar";
         public static final String FICHERO_NO_GUARDADO = "Fichero no guardado";

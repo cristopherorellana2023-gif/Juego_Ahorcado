@@ -180,13 +180,13 @@ public class GestionDiccionarioService implements GestionGeneradorDeElementos {
     //de recuperar una partida
     @Override
     public boolean escribirFicheroBinario() {
-        // aquí guardarías partida (opcional si aún no lo haces)
+        // aquí hay que guardar la partida que se supone que ah terminado
         return true;
     }
 
     @Override
     public boolean cargarFicheroBinario() {
-        // aquí cargarías partida
+        // aquí la tendria que cargar luego de terminar partida
         return true;
     }
 }

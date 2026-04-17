@@ -14,7 +14,7 @@ public class Main {
         //EL MENU PARA QUE SE PUEDA ELEJIR QUE CHINGADOS HACER EN CADA OPCION
         EntradaSalida ui = new EntradaSalida(dicService);
 
-        //ARRANQUE DEL JUEGO
+        //ARRANQUE DEL JUEGO1
         ui.menuPrincipal();
     }
 }
