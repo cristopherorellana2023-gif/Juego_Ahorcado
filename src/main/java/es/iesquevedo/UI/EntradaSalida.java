@@ -2,7 +2,6 @@ package es.iesquevedo.UI;
 
 import es.iesquevedo.Common.Constantes;
 import es.iesquevedo.Modelo.Elemento;
-import es.iesquevedo.Modelo.ResultadoPartida;
 import es.iesquevedo.Servicio.GestionDiccionarioService;
 import es.iesquevedo.Modelo.Juego;
 import es.iesquevedo.dao.CrearAndLeerFichero;
@@ -29,9 +28,12 @@ public class EntradaSalida {
                 switch (opcion) {
                     case 1: menuJugar(); break;
                     case 2:
-                        ResultadoPartida resultado = CrearAndLeerFichero.leerResultado();
-                        if (resultado != null) {
-                            resultado.mostrarResumen();
+                        Juego juegoGuardado = CrearAndLeerFichero.leerResultado();
+
+                        if (juegoGuardado != null) {
+                            juegoGuardado.setEsCargada(true);
+                            juegoGuardado.mostrarResumen();
+                            juegoGuardado.partida(sc);
                         }
                         break;
                     case 3: menuDiccionario(); break;
@@ -56,8 +58,13 @@ public class EntradaSalida {
                 switch (opcion) {
                     case 1:
                         String palabra1 = dicService.getPalabraAdivinar("ANIMALES");
-                        if (palabra1 == null) { System.out.println(Constantes.NO_HAY_PALABRA); break; }
-                        new Juego(palabra1).partida(sc);
+                        if (palabra1 == null) {
+                            System.out.println(Constantes.NO_HAY_PALABRA);
+                            break;
+                        }
+
+                        Juego juegoNuevo = new Juego(palabra1);
+                        juegoNuevo.partida(sc);
                         break;
                     case 2:
                         String palabra2 = dicService.getPalabraAdivinar("SIMPSONS");

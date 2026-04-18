@@ -7,9 +7,10 @@ import es.iesquevedo.Servicio.GestionDiccionarioService;
 public class Main {
 
     public static void main(String[] args) {
-        //DAO: GENERAR EL FICHERO CON LOS ELEMENTOS NECESARIOS
+        //DAO: GENERAR EL FICHERO CON LOS ELEMENTOS NECESARIOS AL NADA MAS ARRANCAR EL MAIN
         GeneradorDeElementos generador = new GeneradorDeElementos();
-        //SERVICE: CREAR EL SERVICIO QUE GESTIONA LOS ELEMENTOS, PASÁNDOLE EL DAO PARA QUE LO UTILICE
+        //SERVICE: CREAR EL SERVICIO QUE GESTIONA LOS ELEMENTOS, PASÁNDOLE EL DAO PARA QUE LO
+        // SE COMUNIQUE CON ESA CLASE Y EL CONTENIDO DE ESE OBJETO
         GestionDiccionarioService dicService = new GestionDiccionarioService(generador);
         //EL MENU PARA QUE SE PUEDA ELEJIR QUE CHINGADOS HACER EN CADA OPCION
         EntradaSalida ui = new EntradaSalida(dicService);

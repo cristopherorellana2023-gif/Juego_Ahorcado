@@ -12,12 +12,13 @@ public class Juego implements Serializable {
     private char[] incognita;
     private int intentos;
     private int intentosTotales;
-
+    private boolean esCargada;
     public Juego(String palabra) {
         this.palabra = palabra.toUpperCase();
         this.incognita = new char[palabra.length()];
         this.intentos = incognita.length;
-        this.intentosTotales = palabra.length();
+        this.intentosTotales = 6;
+        this.esCargada = false;
 
         Arrays.fill(incognita, '_');
     }
@@ -33,12 +34,18 @@ public class Juego implements Serializable {
             } else {
                 System.out.println("Acierto");
             }
+            //esto es para guardar el resultado cada vez que meta una letra
+            CrearAndLeerFichero.guardarResultado(this);
         }
         mostrarResultado();
 
-        // esto para guardar el resultado
-        ResultadoPartida resultado = new ResultadoPartida(palabra, ganado(), intentos, intentosTotales);
-        CrearAndLeerFichero.guardarResultado(resultado);
+
+        //utilizando la misma clase juego (utilizando los mismos metodos que ya creaste en la clase CrearAndLeerFicheros)
+        CrearAndLeerFichero.guardarResultado(this);
+
+        // esto para guardar el resultado creando una clase externa
+        //ResultadoPartida resultado = new ResultadoPartida(palabra, ganado(), intentos, intentosTotales);
+        //CrearAndLeerFichero.guardarResultado(resultado);
     }
 
 
@@ -60,6 +67,8 @@ public class Juego implements Serializable {
         return input.charAt(0);
     }
     //hecho para que se guarde el resultado de la partida para saber que ha salido
+
+
     public boolean isGanado() {
         return palabra.equals(String.valueOf(incognita));
     }
@@ -70,6 +79,18 @@ public class Juego implements Serializable {
 
     public String getPalabra() {
         return palabra;
+    }
+
+    public void setPalabra(String palabra) {
+        this.palabra = palabra;
+    }
+
+    public boolean isEsCargada() {
+        return esCargada;
+    }
+
+    public void setEsCargada(boolean esCargada) {
+        this.esCargada = esCargada;
     }
 
 
@@ -91,11 +112,20 @@ public class Juego implements Serializable {
         return palabra.equals(String.valueOf(incognita));
     }
 
-    private void mostrarResultado() {
+    public void mostrarResultado() {
         if (ganado()) {
             System.out.println("Has ganado! Palabra: " + palabra);
         } else {
             System.out.println("Has perdido! Palabra: " + palabra);
         }
     }
+
+    public void mostrarResumen() {
+        System.out.println("\n--- ÚLTIMA PARTIDA ---");
+        System.out.println("Palabra        : " + palabra);
+        System.out.println("Resultado      : " + (ganado() ? "GANASTE" : "PERDISTE"));
+        System.out.println("Intentos usados: " + getIntentos());
+        System.out.println("________________________");
+}
+
 }

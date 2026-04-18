@@ -2,7 +2,7 @@ package es.iesquevedo.dao;
 
 import es.iesquevedo.Common.Constantes;
 import es.iesquevedo.Modelo.Elemento;
-import es.iesquevedo.Modelo.ResultadoPartida;
+import es.iesquevedo.Modelo.Juego;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -71,55 +71,28 @@ public class CrearAndLeerFichero {
 
 
     // Ficheros binarios para cuando se elija vovler a cargar una partida anterior
-    public static void crearFicheroBinario(List<Elemento> lista) {
-                try {
-                    ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(Constantes.FICHERO_BINARIO));
-                    oos.writeObject(lista);
-                    oos.close();
-                    System.out.println(Constantes.FICHERO_GUARDADO);
 
-        } catch (Exception e) {
-            System.out.println(Constantes.ERROR_GUARDAR);
-        }
-    }
-
-    public static List<Elemento> leerFicheroBinario() {
-        List<Elemento> palabras = null;
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(Constantes.FICHERO_BINARIO))){
-            palabras = (List<Elemento>) ois.readObject();
-
-        } catch (FileNotFoundException e) {
-            System.out.println(Constantes.FICHERO_NO_GUARDADO);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        return palabras;
-    }
-
-    public static void guardarResultado(ResultadoPartida resultado) {
+    public static void guardarResultado(Juego juego) {
         try (ObjectOutputStream oos = new ObjectOutputStream(
                 new FileOutputStream(Constantes.FICHERO_BINARIO))) {
-            oos.writeObject(resultado);
+            oos.writeObject(juego);
             System.out.println(Constantes.FICHERO_GUARDADO);
         } catch (IOException e) {
             System.out.println(Constantes.ERROR_GUARDAR);
         }
     }
 
-    public static ResultadoPartida leerResultado() {
-        File f = new File(Constantes.FICHERO_BINARIO);
-        if (!f.exists() || f.length() == 0) {
-            System.out.println(Constantes.NO_HAY_FICHERO);
-            return null;
-        }
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f))) {
-            return (ResultadoPartida) ois.readObject();
+    public static Juego leerResultado() {
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(Constantes.FICHERO_BINARIO));
+            Juego juego = (Juego) ois.readObject();
+            ois.close();
+            System.out.println("Partida cargada correctamente");
+            return juego;
         } catch (FileNotFoundException e) {
-            System.out.println(Constantes.FICHERO_NO_GUARDADO);
+            System.out.println("No hay partida guardada");
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println(Constantes.ERROR_LEER);
+            System.out.println("Error al cargar la partida");
         }
         return null;
     }
