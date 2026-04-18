@@ -120,6 +120,7 @@ public class Juego implements Serializable {
         }
     }
 
+    //este metodo lo use de tu clase ResultadoPartida, es que ya estba casi todo en esta clase
     public void mostrarResumen() {
         System.out.println("\n--- ÚLTIMA PARTIDA ---");
         System.out.println("Palabra        : " + palabra);
