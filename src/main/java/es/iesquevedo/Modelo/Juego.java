@@ -11,13 +11,11 @@ public class Juego implements Serializable {
     private String palabra;
     private char[] incognita;
     private int intentos;
-    private int intentosTotales;
     private boolean esCargada;
     public Juego(String palabra) {
         this.palabra = palabra.toUpperCase();
         this.incognita = new char[palabra.length()];
-        this.intentos = incognita.length;
-        this.intentosTotales = 6;
+        this.intentos = 6;
         this.esCargada = false;
 
         Arrays.fill(incognita, '_');
